@@ -1,5 +1,7 @@
 # clair-docker
 
+[![Linux build of clair-docker](https://github.com/flavienbwk/clair-docker/actions/workflows/main.yml/badge.svg)](https://github.com/flavienbwk/clair-docker/actions/workflows/main.yml)
+
 Deployment-ready docker configuration and instructions to use Quay Clair on your infrastructure and CIs
 
 > 🌟 If this repo helped you please leave a star !  
