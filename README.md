@@ -25,19 +25,22 @@ Use the utility container I've provided to easily scan an image, including one f
     docker-compose -f scan.docker-compose.yml up
     ```
 
-## GitLab CI example
+## Integrating to your CI
 
-```yml
-clairctl report --host "$CLAIR_ENDPOINT" "$IMAGE_NAME" > report.xml
+1. Build the scan image and tag it
 
-cves=$(cat report.xml | grep -c " found ")
-if [ "$cves" -gt 0 ]
-then
-    cat report.xml
-    exit 1
-fi
-exit 0
-```
+  ```bash
+  docker build ./scan -t flavienb/quay-clair-scan:v4.3.0
+  ```
+
+2. Push the image to your registry
+
+3. Adapt this command in your CI
+
+  ```bash
+  docker run --rm -e IMAGE_NAME="node:10-alpine" -e CLAIR_ENDPOINT="http://172.17.0.1:6060" -e REGISTRY_ENDPOINT="" -e REGISTRY_USERNAME="" -e REGISTRY_PASSWORD="" --privileged --network="host" -it flavienb/quay-clair-scan:v4.3.0
+  echo "Exit code : $?"
+  ```
 
 ## Updating for air-gapped systems
 
