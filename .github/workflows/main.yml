@@ -29,7 +29,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./scan
-          file: ./Dockerfile
           push: true
           tags: flavienb/quay-clair-scan:v4.3.0
 
