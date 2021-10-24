@@ -27,6 +27,8 @@ Use the utility container I've provided to easily scan an image, including one f
     docker-compose -f scan.docker-compose.yml up
     ```
 
+    You can try this vulnerable image : `quay.io/noseka1/deep-dive-into-clair`
+
 ## Integrating to your CI
 
 1. Build the scan image and tag it
@@ -68,3 +70,10 @@ You must first have a connected Clair cluster initialized to perform the followi
   matcher:
     disable_updaters: true
   ```
+
+## Learn more
+
+To learn more about Quay Clair, I recommend you :
+
+- The [official Clair documentation](https://quay.github.io/clair/)
+- Ales Nosek's video ["Deeping Dive into Image Vulnerabillity"](https://www.youtube.com/watch?v=kLpEbUBn06A)
