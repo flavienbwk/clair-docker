@@ -21,3 +21,26 @@ Use the utility container I've provided to easily scan an image, including one f
     ```bash
     docker-compose -f scan.docker-compose.yml up
     ```
+
+## Updating for air-gapped systems
+
+1. On internet-connected machine :
+
+  ```bash
+  clairctl --config clair_config/config.yml export-updaters updates.gz
+  ```
+
+  :information_source: The archive will be ~8.5Gb
+
+2. Transfer the `updates.gz` archive and run :
+
+  ```bash
+  clairctl import-updaters http://web.svc/updates.gz
+  ```
+
+3. Matcher processes should have the disable_updaters key set to disable automatic updaters running.
+
+  ```yml
+  matcher:
+    disable_updaters: true
+  ```
