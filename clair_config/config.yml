@@ -13,7 +13,7 @@
 # limitations under the License.
 ---
 introspection_addr: localhost:8089
-http_listen_addr: localhost:8080
+http_listen_addr: 0.0.0.0:8080
 log_level: debug
 indexer:
   connstring: host=postgres port=5432 user=postgres password=postgres dbname=clair sslmode=disable

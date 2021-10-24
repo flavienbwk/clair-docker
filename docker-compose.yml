@@ -16,7 +16,7 @@ services:
     image: quay.io/coreos/clair:v4.3.0
     restart: always
     ports:
-      - "6060:6060"
+      - "6060:8080"
       - "6061:6061"
     environment:
       CLAIR_MODE: combo
