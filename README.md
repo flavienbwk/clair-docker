@@ -2,6 +2,9 @@
 
 Deployment-ready docker configuration and instructions to use Quay Clair on your infrastructure and CIs
 
+> 🌟 If this repo helped you please leave a star !  
+> :smiley: Suggestions and feedbacks are [highly appreciated](https://github.com/flavienbwk/clair-docker/issues/new)
+
 ## Start Clair server
 
 Run the following command, then wait about 5 minutes the time Clair indexes all CVEs.
