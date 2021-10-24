@@ -30,7 +30,7 @@ jobs:
         with:
           context: ./scan
           push: false
-          tags: flavienbwk/clair-docker/quay-clair-scan:v4.3.0
+          tags: ghcr.io/flavienbwk/clair-docker/quay-clair-scan:v4.3.0
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
 
@@ -44,5 +44,5 @@ jobs:
         with:
           context: ./scan
           push: true
-          tags: flavienbwk/clair-docker/quay-clair-scan:v4.3.0
+          tags: ghcr.io/flavienbwk/clair-docker/quay-clair-scan:v4.3.0
           cache-from: type=local,src=/tmp/.buildx-cache
