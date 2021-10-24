@@ -27,7 +27,7 @@ Use the utility container I've provided to easily scan an image, including one f
     docker-compose -f scan.docker-compose.yml up
     ```
 
-## Integrating to your CI
+## Integrating with your CI
 
 1. Build the scan image and tag it
 
@@ -37,7 +37,7 @@ Use the utility container I've provided to easily scan an image, including one f
 
 2. Push the image to your registry
 
-3. Adapt this command in your CI
+3. Adapt the following command to your CI
 
   ```bash
   docker run --rm -e IMAGE_NAME="node:10-alpine" -e CLAIR_ENDPOINT="http://172.17.0.1:6060" -e REGISTRY_ENDPOINT="" -e REGISTRY_USERNAME="" -e REGISTRY_PASSWORD="" --privileged --network="host" -it ghcr.io/flavienbwk/clair-docker/quay-clair-scan:v4.3.0
