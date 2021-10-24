@@ -9,12 +9,6 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-
-      - name: Extract branch name
-        if: github.event_name != 'pull_request'
-        shell: bash
-        run: echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
-        id: extract_branch
     
       - name: Check Out Repo 
         uses: actions/checkout@v2
@@ -30,22 +24,25 @@ jobs:
         id: buildx
         uses: docker/setup-buildx-action@v1
 
-      - name: Build and push
+      - name: Build dev
         id: docker_build
         uses: docker/build-push-action@v2
         with:
           context: ./scan
           push: false
           tags: flavienbwk/clair-docker/quay-clair-scan:v4.3.0
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
-      - name: Build and push
+      - name: Build prod and push
         id: docker_build_push
-        if: ${{ env.BRANCH_NAME }} == 'master'
+        if: github.ref == 'refs/heads/master'
         uses: docker/build-push-action@v2
         with:
           context: ./scan
           push: true
           tags: flavienbwk/clair-docker/quay-clair-scan:v4.3.0
+          cache-from: type=local,src=/tmp/.buildx-cache
