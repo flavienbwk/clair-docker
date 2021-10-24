@@ -11,7 +11,7 @@ services:
       IMAGE_NAME: node:10-alpine
       CLAIR_ENDPOINT: "http://172.17.0.1:6060"
       # Filling REGISTRY_USERNAME env variables will trigger registry authentication
-      # REGISTRY_ENDPOINT must be **empty** for authenticate against Docker Hub
+      # REGISTRY_ENDPOINT must be **empty** to authenticate against Docker Hub
       REGISTRY_ENDPOINT:
       REGISTRY_USERNAME:
       REGISTRY_PASSWORD:

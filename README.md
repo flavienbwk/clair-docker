@@ -29,22 +29,22 @@ Use the utility container I've provided to easily scan an image, including one f
 
     You can try this vulnerable image : `quay.io/noseka1/deep-dive-into-clair`
 
-## Integrating to your CI
+## Integrating with your CI
 
 1. Build the scan image and tag it
 
-  ```bash
-  docker build ./scan -t ghcr.io/flavienbwk/clair-docker/quay-clair-scan:v4.3.0
-  ```
+    ```bash
+    docker build ./scan -t ghcr.io/flavienbwk/clair-docker/quay-clair-scan:v4.3.0
+    ```
 
 2. Push the image to your registry
 
-3. Adapt this command in your CI
+3. Adapt the following command to your CI
 
-  ```bash
-  docker run --rm -e IMAGE_NAME="node:10-alpine" -e CLAIR_ENDPOINT="http://172.17.0.1:6060" -e REGISTRY_ENDPOINT="" -e REGISTRY_USERNAME="" -e REGISTRY_PASSWORD="" --privileged --network="host" -it ghcr.io/flavienbwk/clair-docker/quay-clair-scan:v4.3.0
-  echo "Exit code : $?"
-  ```
+    ```bash
+    docker run --rm -e IMAGE_NAME="node:10-alpine" -e CLAIR_ENDPOINT="http://172.17.0.1:6060" -e REGISTRY_ENDPOINT="" -e REGISTRY_USERNAME="" -e REGISTRY_PASSWORD="" --privileged --network="host" -it ghcr.io/flavienbwk/clair-docker/quay-clair-scan:v4.3.0
+    echo "Exit code : $?"
+    ```
 
 ## Updating for air-gapped systems
 
@@ -52,24 +52,24 @@ You must first have a connected Clair cluster initialized to perform the followi
 
 1. On internet-connected machine :
 
-  ```bash
-  clairctl --config clair_config/config.yml export-updaters updates.gz
-  ```
+    ```bash
+    clairctl --config clair_config/config.yml export-updaters updates.gz
+    ```
 
-  :information_source: The archive will be ~8.5Gb
+    :information_source: The archive will be ~8.5Gb
 
 2. Transfer the `updates.gz` archive and run :
 
-  ```bash
-  clairctl import-updaters http://web.svc/updates.gz
-  ```
+    ```bash
+    clairctl import-updaters http://web.svc/updates.gz
+    ```
 
 3. Matcher processes should have the disable_updaters key set to disable automatic updaters running.
 
-  ```yml
-  matcher:
-    disable_updaters: true
-  ```
+    ```yml
+    matcher:
+        disable_updaters: true
+    ```
 
 ## Learn more
 
