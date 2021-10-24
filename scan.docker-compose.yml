@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+
+  scan:
+    build: ./scan
+    image: flavienb/quay-clair-scan:v4.3.0
+    environment:
+      IMAGE_NAME: ubuntu:focal
+      CLAIR_ENDPOINT: "http://192.168.0.42:6060"
+      # Filling following env variables will trigger registry authentication
+      REGISTRY_ENDPOINT:
+      REGISTRY_USERNAME:
+      REGISTRY_PASSWORD:

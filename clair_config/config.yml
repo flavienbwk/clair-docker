@@ -1,0 +1,102 @@
+# Copyright 2015 clair authors
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+introspection_addr: localhost:8089
+http_listen_addr: localhost:8080
+log_level: debug
+indexer:
+  connstring: host=postgres port=5432 user=postgres password=postgres dbname=clair sslmode=disable
+  scanlock_retry: 10
+  layer_scan_concurrency: 5
+  migrations: true
+matcher:
+  indexer_addr: "localhost:8080"
+  connstring: host=postgres port=5432 user=postgres password=postgres dbname=clair sslmode=disable
+  max_conn_pool: 100
+  run: ""
+  migrations: true
+  updater_sets:
+    - "alpine"
+    - "aws"
+    - "debian"
+    - "oracle"
+    - "photon"
+    - "pyupio"
+    - "rhel"
+    - "suse"
+    - "ubuntu"
+matchers:
+  names:
+    - "alpine"
+    - "aws"
+    - "debian"
+    - "oracle"
+    - "photon"
+    - "python"
+    - "rhel"
+    - "suse"
+    - "ubuntu"
+    - "crda"
+  config:
+    crda:
+      url: https://f8a-analytics-preview-2445582058137.production.gw.apicast.io/?user_key=3e42fa66f65124e6b1266a23431e3d08
+notifier:
+  indexer_addr: http://clair-indexer:8080/
+  matcher_addr: http://clair-matcher:8080/
+  connstring: host=postgres port=5432 user=postgres password=postgres dbname=clair sslmode=disable
+  migrations: true
+  delivery_interval: 1m
+  poll_interval: 5m
+  # if multiple delivery methods are defined the only one will be selected.
+  # preference order:
+  # webhook, amqp, stomp
+  webhook:
+    target: "http://webhook/"
+    callback: "http://clair-notifier/notifier/api/v1/notifications"
+  amqp:
+    exchange:
+      name: ""
+      type: "direct"
+      durable: true
+      auto_delete: false
+    uris: ["amqp://user:pass@host:10000/vhost"]
+    direct: false
+    routing_key: "notifications"
+    callback: "http://clair-notifier/notifier/api/v1/notifications"
+    tls:
+      root_ca: "optional/path/to/rootca"
+      cert: "madatory/path/to/cert"
+      key: "madatory/path/to/key"
+  stomp:
+    desitnation: "notifications"
+    direct: false
+    callback: "http://clair-notifier/notifier/api/v1/notifications"
+    login:
+      login: "username"
+      passcode: "passcode"
+    tls:
+      root_ca: "optional/path/to/rootca"
+      cert: "madatory/path/to/cert"
+      key: "madatory/path/to/key"
+
+trace:
+  name: "jaeger"
+  probability: 1
+  jaeger:
+    agent:
+      endpoint: "localhost:6831"
+    service_name: "clair"
+
+metrics:
+  name: "prometheus"

@@ -1,0 +1,30 @@
+version: "3.7"
+
+services:
+
+  postgres:
+    image: postgres:12.8-alpine3.14
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: clair
+    volumes:
+      - postgres:/var/lib/postgresql/data
+  
+  clair:
+    image: quay.io/coreos/clair:v4.3.0
+    restart: always
+    ports:
+      - "6060:6060"
+      - "6061:6061"
+    environment:
+      CLAIR_MODE: combo
+      CLAIR_CONF: /config/config.yml
+    volumes:
+      - ./clair_config/:/config
+    depends_on: 
+      - postgres
+
+volumes:
+  postgres:
