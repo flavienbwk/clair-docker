@@ -61,8 +61,10 @@ You must first have a connected Clair cluster initialized to perform the followi
 2. Transfer the `updates.gz` archive and run :
 
     ```bash
-    clairctl import-updaters http://web.svc/updates.gz
+    clairctl import-updaters updates.gz
     ```
+
+    _In order to have access to the internal networking including Postgres database, you may need to copy `updates.gz` inside `clair`'s container with `docker cp` command and then run the command above from inside the container._
 
 3. Matcher processes should have the disable_updaters key set to disable automatic updaters running.
 
