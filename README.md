@@ -53,18 +53,18 @@ You must first have a connected Clair cluster initialized to perform the followi
 1. On internet-connected machine :
 
     ```bash
-    clairctl --config clair_config/config.yml export-updaters updates.gz
+    clairctl --config clair_config/config.yml export-updaters updates.json
     ```
 
-    :information_source: The archive will be ~8.5Gb
+    :information_source: The JSON file will be ~8.5Gb
 
-2. Transfer the `updates.gz` archive and run :
+2. Transfer the `updates.json` archive and run :
 
     ```bash
-    clairctl import-updaters updates.gz
+    clairctl import-updaters updates.json
     ```
 
-    _In order to have access to the internal networking including Postgres database, you may need to copy `updates.gz` inside `clair`'s container with `docker cp` command and then run the command above from inside the container._
+    _In order to have access to the internal networking including Postgres database, you may need to copy `updates.json` inside `clair`'s container with `docker cp` command and then run the command above from inside the container._
 
 3. Matcher processes should have the disable_updaters key set to disable automatic updaters running.
 
