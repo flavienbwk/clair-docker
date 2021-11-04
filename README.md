@@ -54,17 +54,20 @@ You must first have a connected Clair cluster initialized to perform the followi
 
     ```bash
     clairctl --config clair_config/config.yml export-updaters updates.json
+    gzip updates.json
     ```
 
-    :information_source: The JSON file will be ~8.5Gb
+    :information_source: The **gz** file will be ~8.5Gb
 
-2. Transfer the `updates.json` archive and run :
+2. Move the `updates.json.gz` archive in the `clair_config/` directory and run update :
 
     ```bash
-    clairctl import-updaters updates.json
-    ```
+    mv updates.json.gz clair_config/
+    docker exec -it $(docker-compose ps -q | head -1) bash
 
-    _In order to have access to the internal networking including Postgres database, you may need to copy `updates.json` inside `clair`'s container with `docker cp` command and then run the command above from inside the container._
+    # Inside the `clair` container
+    cd /config && clairctl import-updaters updates.json.gz
+    ```
 
 3. Matcher processes should have the disable_updaters key set to disable automatic updaters running.
 
