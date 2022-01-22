@@ -82,3 +82,5 @@ To learn more about Quay Clair, I recommend you :
 
 - The [official Clair documentation](https://quay.github.io/clair/)
 - Ales Nosek's video ["Deeping Dive into Image Vulnerabillity"](https://www.youtube.com/watch?v=kLpEbUBn06A)
+
+Warning : GitLab 14+ [deprecated Clair in favor of Trivy](https://about.gitlab.com/blog/2021/06/04/gitlab-moving-to-14-breaking-changes/#container-scanning-engine-clair-removal)
